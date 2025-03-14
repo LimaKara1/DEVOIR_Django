@@ -55,17 +55,18 @@
 <body>
     <div class="container">
         <h1>Modifier les Informations</h1>
-        <form id="modifyForm">
+        <form method="post" action="{% url 'modifier' %}">
+            {% csrf_token %}
             <label for="category">Catégorie :</label>
-            <input type="text" id="category" name="category" placeholder="Entrez la catégorie..." required>
-
+            <input type="text" id="category" name="category" value="{{ signalement.category }}" required>
+        
             <label for="description">Description :</label>
-            <textarea id="description" name="description" rows="4" placeholder="Entrez la description..." required></textarea>
-
-            <label for="text">Localisation :</label>
-            <input type="text"  name="Localisation" required>
-
-            <a href="{% url 'detail'}"><button type="submit">Modifier</button></a>
-        </form>
+            <textarea id="description" name="description" rows="4" required>{{ signalement.description }}</textarea>
+        
+            <label for="location">Localisation :</label>
+            <input type="text" id="location" name="Localisation" value="{{ signalement.location }}" required>
+        
+            <button type="submit">Modifier</button>
+        </form>                 
     </div>
 </html>

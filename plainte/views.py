@@ -1,39 +1,30 @@
 from django.shortcuts import render, redirect
-from .models import Report
+from .models import Report, Signalement
 from .forms import ReportForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
 from .models import Report
+from django.contrib.auth.models import User
 
 def home(request):
-    """ Vue pour la page d'accueil. """
     return render(request, 'home.html')
 
 def authentification(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
+        username = request.POST.get('username')
+        email = request.POST.get('email') 
+        if username and email:
+            user, created = User.objects.get_or_create(
+                username=username,
+                defaults={"email": email}
+            )
             login(request, user)
-            return redirect('plainte') 
+            return redirect('plainte')
         else:
-            messages.error(request, 'Identifiants invalides. Veuillez réessayer.')
+            messages.error(request, 'Veuillez fournir un nom et une adresse e-mail valides.')
     return render(request, 'authentification.html') 
-
-def connexion(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('plainte') 
-        else:
-            messages.error(request, 'Identifiants invalides. Veuillez réessayer.')
-    return render(request, 'authentification.html')  
 
 @login_required
 def rapport(request):
@@ -51,13 +42,13 @@ def rapport(request):
 
 @login_required
 def plainte(request):
-    """ Vue pour afficher le tableau de bord. """
     reports = Report.objects.filter(user=request.user)
     return render(request, 'plainte.html', {'reports': reports})
 
 def detail(request, report_id):
-    report = get_object_or_404(Report, id=report_id)
-    return render(request, 'detail.html', {'report': report})
+    report = get_object_or_404(Report, id=report_id) 
+    request.session['signalement_id'] = report.id
+    return render(request, 'detail.html', {'report': report})  
 
 def final(request):
     return render(request, 'final.html')
@@ -68,4 +59,14 @@ def bientot(request):
 from django.urls import reverse
 
 def modifier(request):
-    return render(request, 'modifier.html')
+    signalement_id = request.session.get('signalement_id')
+    if not signalement_id:
+        return redirect('modifier')
+    signalement = get_object_or_404(Report, id=signalement_id)
+    if request.method == 'POST':
+        signalement.category = request.POST.get('category')
+        signalement.description = request.POST.get('description')
+        signalement.location = request.POST.get('Localisation')
+        signalement.save()
+        return redirect('detail', report_id=signalement.id)
+    return render(request, 'modifier.html', {'signalement': signalement})
