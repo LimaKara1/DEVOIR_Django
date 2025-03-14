@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil</title>
+    <style>
+        /* Styles généraux pour le corps */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        /* Conteneur principal */
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px 40px;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        /* Titre principal */
+        h1 {
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        /* Texte descriptif */
+        p {
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        /* Bouton d'identification */
+        a {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            background-color: #4CAF50;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <h1>Bienvenue Sur Le Plateforme Numérique De Gestion De Plaintes Citoyennes</h1>
+    <p>Signalez les problèmes urbains facilement et rapidement.</p>
+    <a href="{% url 'authentification' %}">S'identifier</a>
+</body>
+</html>

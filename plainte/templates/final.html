@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Succès</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        p {
+            font-size: 18px;
+            color: #555;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: white;
+            background: #4CAF50;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        a:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Votre plainte a été soumise avec succès !</h1>
+        <p>Nous avons bien reçu votre plainte. Elle est actuellement en cours de traitement par nos équipes.</p>
+        <p>Merci de votre contribution à l'amélioration de nos services.</p>
+        <a href="{% url 'plainte' %}">Nouveau Plainte</a>
+        <a href="{% url 'bientot' %}">A Bientot</a>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de bord</title>
+    <style>
+        /* Corps de la page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Conteneur principal */
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px 30px;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        /* Titre */
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        /* Liste des signalements */
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            background-color: #f9f9f9;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        ul li strong {
+            color: #333;
+        }
+
+        ul li span {
+            color: #777;
+            font-size: 12px;
+        }
+
+        /* Bouton Signaler un problème */
+        a.btn {
+            display: block;
+            text-decoration: none;
+            color: white;
+            background-color: #4CAF50;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+        }
+
+        a.btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Vous Pouvez Signaler Vos Problémes</h1>
+        <ul>
+            {% for report in rapport %}
+            <li>
+                <div>
+                    <strong>{{ report.category }}</strong> - {{ report.description }}
+                </div>
+                <span>{{ report.created_at }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'rapport' %}" class="btn">Signaler un problème</a>
+    </div>
+</body>
+</html>
