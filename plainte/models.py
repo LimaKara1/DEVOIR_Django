@@ -12,7 +12,6 @@ class Report(models.Model):
     category = models.CharField(max_length=50)
     description = models.TextField()
     location = models.CharField(max_length=255)
-    photo = models.ImageField(upload_to='photos/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
